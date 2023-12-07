@@ -27,6 +27,21 @@ type Viewer {
   products: [Product!]!
 }
 
+type MessageStatus{
+  message:String!
+}
+
+input ProductInput {
+  name: String!
+  description: String!
+  price: Float!
+  createdAt: String!
+}
+
+type Mutation {
+  createProduct(product:ProductInput!): MessageStatus
+}
+
 type Query {
   viewer: Viewer!
 }

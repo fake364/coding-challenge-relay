@@ -1,40 +1,45 @@
 // @flow
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { graphqlHTTP } from 'express-graphql';
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { graphqlHTTP } from "express-graphql";
 // $FlowFixMe[cannot-resolve-module]
-import schemaString from './mock.graphql';
-import * as products from './products';
+import schemaString from "./mock.graphql";
+import * as products from "./products";
+import type { Product } from "./products";
+import createProductResolver from "../../lib/utils/resolvers/createProduct/createProduct";
 
 const viewer = {
   me: () => ({
     id: 9287364982716489723,
-    name: 'Ernest',
-    surname: 'Thompson',
-    companyName: 'Test company, S.R.L.',
-    role: 'ADMIN',
-    createdAt: '2019-11-08T06:50:17.449Z',
+    name: "Ernest",
+    surname: "Thompson",
+    companyName: "Test company, S.R.L.",
+    role: "ADMIN",
+    createdAt: "2019-11-08T06:50:17.449Z"
   }),
-  products: () => products.get(),
+  products: () => products.get()
 };
 
 const resolvers = {
   Query: {
-    viewer: () => viewer,
+    viewer: () => viewer
   },
-}
+  Mutation: {
+    createProduct: createProductResolver
+  }
+};
 
 const schema = makeExecutableSchema({ typeDefs: schemaString, resolvers });
 
-const handler =  (req: NextApiRequest, res: NextApiResponse<any>) => {
+const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
   return graphqlHTTP({
     schema,
     graphiql: true,
-    customFormatErrorFn: (error) => ({
+    customFormatErrorFn: error => ({
       message: error.message,
       locations: error.locations,
-      stack: error.stack ? error.stack.split('\n') : [],
-      path: error.path,
-    }),
+      stack: error.stack ? error.stack.split("\n") : [],
+      path: error.path
+    })
   })(req, res);
 };
 

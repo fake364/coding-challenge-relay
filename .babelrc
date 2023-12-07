@@ -7,6 +7,7 @@
     "@babel/plugin-transform-flow-strip-types",
     ["relay", { "artifactDirectory": "__generated__" }],
     "react-intl",
-    "inline-react-svg"
+    "inline-react-svg",
+    ["./lib/pathNormaliser.js"]
   ]
 }

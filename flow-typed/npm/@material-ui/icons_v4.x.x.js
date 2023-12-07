@@ -10,6 +10,8 @@
  * I use `@@SvgIcon` name to not cause conflicts with the original type.
  * More info: https://github.com/flow-typed/flow-typed/pull/3303#issuecomment-493877563
  */
+import SvgIcon from "@material-ui/core/@@SvgIcon";
+
 declare module '@material-ui/core/@@SvgIcon' {
   declare type SVGElementProps = {...};
 
@@ -541,6 +543,11 @@ declare module '@material-ui/icons/AddToHomeScreenSharp' {
 declare module '@material-ui/icons/AddToHomeScreenTwoTone' {
   import typeof SvgIcon from '@material-ui/core/@@SvgIcon';
   declare export default SvgIcon;
+}
+
+declare module '@material-ui/icons/Home' {
+    import typeof SvgIcon from '@material-ui/core/@@SvgIcon';
+    declare export default SvgIcon;
 }
 declare module '@material-ui/icons/AddToPhotos' {
   import typeof SvgIcon from '@material-ui/core/@@SvgIcon';
